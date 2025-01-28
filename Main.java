@@ -1,14 +1,10 @@
-class Main
-{
-    public static void main(String[] args) 
-    {
-        Profile person = new Profile("Sabari", "TRLINTERN026");
-        person.setUsername("   ");
-        try {
-            person.validateName();
-        } 
-        catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage()); 
-        }
+
+public class Main{
+    public static void main(String args[]){
+        BankAccount b = new BankAccount("Sabari", 123, 1000);
+        // Parameters => HolderName, AccountNumber, balance
+        b.checkBalance();
+        b.credit(100);
+        b.debit(500);
     }
 }
