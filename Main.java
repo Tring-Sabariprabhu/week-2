@@ -7,7 +7,7 @@ class Main
         try {
             person.validateName();
         } 
-        catch (IllegalArgumentException e) {
+        catch (IllegalStateException e) {
             System.out.println(e.getMessage()); 
         }
     }
