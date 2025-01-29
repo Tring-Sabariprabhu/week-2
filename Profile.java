@@ -19,7 +19,7 @@ class Profile{
     }
     public void validateName() {
         if (Username.trim().isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be empty or null.");
+            throw new IllegalStateException("Username cannot be empty or null.");
         }
         System.out.println("Username is valid: " + Username);
     }
