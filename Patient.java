@@ -65,7 +65,8 @@ class Patient implements PatientPage{
             System.out.println("\nNo Appointments found!");
             return ;
         }
-        System.out.println("\nAppointments details for PatientID - " + getPatientID());
+        System.out.println("\n" + name + " Have " + bookedAppointments.size() + " Booked Appointments");
+        System.out.println("Here's booked Appointments List->");
         for(Appointment appointment : bookedAppointments ){
             Doctor doctor = (m.doctors.get( appointment.getDoctorID()));
             System.out.println(" Appointment ID : " + appointment.getAppointmentID());

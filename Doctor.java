@@ -8,7 +8,7 @@ class Doctor implements DoctorPage{
     private String name;
     private String specialization;
     private int doctorID;
-    // private int appointmentsCount;
+    
     // Key -> PatientID ,  Value -> AppointmentClass
     private HashMap<Integer, Appointment> appointments = new HashMap<>();
     public Doctor(String name, String specialization){
@@ -24,9 +24,7 @@ class Doctor implements DoctorPage{
     public void setSpecialization(String specialization){
         this.specialization = specialization;
     }
-    // public void setAppoint( ){
-    //     appointmentsCount += 1;
-    // }
+   
     
     public void putAppointmentToMap(int patientID, Appointment appointment){
         appointments.put(patientID, appointment);
@@ -65,7 +63,8 @@ class Doctor implements DoctorPage{
             System.out.println("\n0 Appointments !");
             return ;
         }
-        System.out.println("\nAppointments details for DoctorID - " + getDoctorID());
+        System.out.println(  name + " Have " + appointments.size() + " Appointments..");
+        System.out.println("Here's Appointments List ->");
         for(Appointment appointment: appointments.values()){
             Patient patient = (m.patients.get( appointment.getPatientID()));
             System.out.println(" Appointment ID : " + appointment.getAppointmentID());

@@ -17,7 +17,7 @@ class Main {
             int patientID;
 
             System.out.println("------------------------------------------------");
-            System.out.println("\n1 - Create Doctor details \n2 - Create Appointment \n3 - Doctors count \n4 - Patients count \n5 - Appointment details (Doctor view) \n6 - Appointment details (Patient view) \n7 - Exit\n");
+            System.out.println("1 - Create Doctor details \n2 - Create Appointment \n3 - Doctors count \n4 - Patients count \n5 - Appointment details (Doctor view) \n6 - Appointment details (Patient view) \n7 - Exit");
             System.out.println("------------------------------------------------");
             System.out.print("Enter your Choice : ");
             Choice = scan.nextInt();
@@ -89,6 +89,7 @@ class Main {
                     
                     // Showing entered Patient Details
                     patient.showPatientDetails();
+
                     if(doctor.isAlreadyHaveAppointment(patient.getPatientID())){
                         System.out.println("\nSorry!! You Already Have Appointment with this Doctor. Am I right? ");
                         
@@ -96,6 +97,8 @@ class Main {
                         (doctor.getAppointmentFromMap(patient.getPatientID())).showAppointmentDetails(doctor, patient);
                         break;
                     }
+
+                    // Getting Disease details
                     System.out.println("To Creating Appointment we need Info about Disease..");
                     String disease = inputDiseaseDetails();
     
@@ -111,8 +114,7 @@ class Main {
                     // Showing Appointment details
                     System.out.println("\nBooked Appointment Details..");
                     (doctor.getAppointmentFromMap(patient.getPatientID())).showAppointmentDetails(doctor, patient);
-
-                    
+   
                     break;
                 case 3:
                     if(checkDoctorsListIsEmpty()){
@@ -218,11 +220,11 @@ class Main {
     }
     public static void AddDoctorDetails(Doctor doctor){
         doctors.put(doctor.getDoctorID(), doctor);
-        System.out.println("\n                 << Doctor details Added Successfully >> ");
+        System.out.println("\n << Doctor details Saved Successfully >> ");
     }
     public static void AddPatientDetails(Patient patient){
         patients.put(patient.getPatientID(), patient);
-        System.out.println("\n                 << Patient details Added Successfully >> ");
+        System.out.println("\n << Patient details Saved Successfully >> ");
     }
 
     public static void showDoctorsDetails(){
@@ -248,12 +250,5 @@ class Main {
         return false;
     }
     
-    
-    // public static void createAppointment(Doctor doctor, Patient patient){
-        
-    //     doctor.IncreaseAppointmentsCount();
-    //     int appointmentID = doctor.getAppointmentsCount() ;
-        
-    // }
     
 }

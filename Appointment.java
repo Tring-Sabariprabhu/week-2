@@ -8,6 +8,7 @@ class Appointment{
     private int doctorID;
     private String patientName;
     private String doctorName;
+    private int patientAge;
     private String disease;
     private String specialization;
     public void setAppointmentID(int appointmentID){
@@ -25,6 +26,9 @@ class Appointment{
     public void setDisease(String disease){
         this.disease = disease;
     }
+    public void setPatientAge(int patientAge){
+        this.patientAge = patientAge;
+    }
     public int getAppointmentID(){
         return appointmentID;
     }
@@ -40,6 +44,9 @@ class Appointment{
     public String getDisease(){
         return disease;
     }
+    public int getPatientAge(){
+        return patientAge;
+    }
     public void createAppointment(Doctor doctor, Patient patient, String disease){
         // Increment Appointment ID 
         Main m = new Main();
@@ -51,14 +58,16 @@ class Appointment{
         this.setDisease(disease);
         this.setDoctorID(doctor.getDoctorID());
         this.setSpecialization(doctor.getSpecialization());
-        System.out.println("\n                 << Appointment Booked Successfully >> ");        
+        this.setPatientAge(patient.getAge());
+        System.out.println("\n << Appointment Booked Successfully >> ");        
     }
     public void showAppointmentDetails(Doctor doctor, Patient patient){
         
         System.out.println("\n Appointment ID - " + getAppointmentID());
 
         System.out.println(" Patient Name - " + patient.getName());
-        System.out.println(" Patient ID - " + getPatientID());       
+        System.out.println(" Patient ID - " + getPatientID());
+        System.out.println(" Patient Age - " + getPatientAge());       
         System.out.println(" Disease - " + getDisease() );
 
         System.out.println(" Doctor Name - " + doctor.getName());
