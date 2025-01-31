@@ -68,10 +68,11 @@ class Doctor implements DoctorPage{
         System.out.println("\nAppointments details for DoctorID - " + getDoctorID());
         for(Appointment appointment: appointments.values()){
             Patient patient = (m.patients.get( appointment.getPatientID()));
-            System.out.println("Appointment ID : " + appointment.getAppointmentID());
-            System.out.println("Patient ID : " + appointment.getPatientID());
-            System.out.println("Patient name : " + patient.getName());
-            System.out.println("Disease : " + appointment.getDisease());
+            System.out.println(" Appointment ID : " + appointment.getAppointmentID());
+            System.out.println(" Patient name : " + patient.getName());
+            System.out.println(" Patient ID : " + appointment.getPatientID());
+            System.out.println(" Patient Age: " + patient.getAge());
+            System.out.println(" Disease : " + appointment.getDisease());
             System.out.println("");
         }
     }
