@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+
 interface PatientPage{
     void showPatientDetails();
     void showBookedAppointmentsList();
 }
+
 class Patient implements PatientPage{
     private int patientID;
     private String name;
@@ -25,18 +27,6 @@ class Patient implements PatientPage{
     public void setPatientID(int patientID){
         this.patientID = patientID;
     }
-    public void putAppointmentToList( Appointment appointment){
-        bookedAppointments.add(appointment);
-    }
-    public Appointment getAppointmentFromList(int doctorID){
-        return bookedAppointments.get(doctorID);
-    }
-    // public String getDisease(){
-    //     return disease;
-    // }
-    // public void setDisease(String disease){
-    //     this.disease = disease;
-    // }
 
     public String getName(){
         return name;
@@ -48,31 +38,48 @@ class Patient implements PatientPage{
         return patientID;
     }
     
-    public int getBookedAppointmentsCount(){
+    public void putAppointmentDetails( Appointment appointment){
+        bookedAppointments.add(appointment);
+    }
+    public int getSizeOfAppointmentsList(){
         return bookedAppointments.size();
     }
+    // public String getDisease(){
+    //     return disease;
+    // }
+    // public void setDisease(String disease){
+    //     this.disease = disease;
+    // }
+
     
-   public void showPatientDetails(){
+    
+    public void showPatientDetails()
+    {
         System.out.println(" Patient name - " + this.name);
         System.out.println(" Patient ID - " + this.patientID);
         System.out.println(" Patient Age - " + this.age);
-        System.out.println(" Your Booked Appointments count - " + this.getBookedAppointmentsCount());
+        System.out.println(" Your Booked Appointments count - " + this.getSizeOfAppointmentsList());
         System.out.println("\n");
     }
-    public void showBookedAppointmentsList(){
-        Main m = new Main();
-        if (bookedAppointments.isEmpty()) {
-            System.out.println("\nNo Appointments found!");
+    public void showBookedAppointmentsList()
+    {
+        Storage storage = new Storage();
+        System.out.print("Patient ");
+
+        if (getSizeOfAppointmentsList() == 0) {          // Size of the Appointments details, booked by Patient
+            System.out.print(getName()+ " Have ");
+            System.out.println("\n0 booked Appointments !");
             return ;
         }
-        System.out.println("\n" + name + " Have " + bookedAppointments.size() + " Booked Appointments");
+        System.out.println( name + " Have " + bookedAppointments.size() + " Booked Appointments");
         System.out.println("Here's booked Appointments List->");
+
         for(Appointment appointment : bookedAppointments ){
-            Doctor doctor = (m.doctors.get( appointment.getDoctorID()));
+            Doctor doctor = (storage.getDoctorDetails( appointment.getDoctorID() ));
             System.out.println(" Appointment ID : " + appointment.getAppointmentID());
             System.out.println(" Doctor ID : " + appointment.getDoctorID());
             System.out.println(" Doctor name : " + doctor.getName());
-            System.out.println(" Specialization : " +appointment.getSpecialization());
+            System.out.println(" Specialization : " + doctor.getSpecialization());
             System.out.println(" Disease : " + appointment.getDisease());
             System.out.println("");
 

@@ -1,6 +1,6 @@
 import java.util.HashMap;
 interface DoctorPage{
-    boolean isAlreadyHaveAppointment(int patientID);
+    boolean ifAlreadyHaveAppointment(int patientID);
     void showDoctorDetails();
     void showAppointmentsList();
 }
@@ -24,20 +24,9 @@ class Doctor implements DoctorPage{
     public void setSpecialization(String specialization){
         this.specialization = specialization;
     }
-   
-    
-    public void putAppointmentToMap(int patientID, Appointment appointment){
-        appointments.put(patientID, appointment);
-    }
-    public Appointment getAppointmentFromMap(int patientID){
-        return appointments.get(patientID);
-    }
-    public boolean isAlreadyHaveAppointment(int patientID){
-        return appointments.containsKey(patientID);
-    }
 
-    public int getAppointmentsCount(){
-        return appointments.size();
+    public int getDoctorID(){
+        return doctorID;
     }
     public String getName(){
         return name;
@@ -45,10 +34,19 @@ class Doctor implements DoctorPage{
     public String getSpecialization(){
         return specialization;
     }
-    public int getDoctorID(){
-        return doctorID;
-    }
     
+    public void putAppointmentDetails(int patientID, Appointment appointment){
+        appointments.put(patientID, appointment);
+    }
+    public Appointment getAppointmentDetails(int patientID){
+        return appointments.get(patientID);
+    }
+    public int getSizeOfAppointmentsList(){
+        return appointments.size();
+    }
+    public boolean ifAlreadyHaveAppointment(int patientID){
+        return appointments.containsKey(patientID);
+    }
     public void showDoctorDetails(){
         System.out.println(" Doctor name - " + this.name);
         System.out.println(" Doctor ID - " + this.doctorID);
@@ -56,20 +54,23 @@ class Doctor implements DoctorPage{
         System.out.println(" Appointments count - " + this.appointments.size());
         System.out.println("");
     }
-    public void showAppointmentsList(){
-        Main m = new Main();
-        if (appointments.isEmpty()) {
+    public void showAppointmentsList()
+    {
+        Storage storage = new Storage();
+        System.out.print("Doctor ");
+        if (getSizeOfAppointmentsList() == 0) {            // Size of the Appointments details List
             System.out.print(getName()+ " Have ");
             System.out.println("\n0 Appointments !");
             return ;
         }
         System.out.println(  name + " Have " + appointments.size() + " Appointments..");
         System.out.println("Here's Appointments List ->");
+
         for(Appointment appointment: appointments.values()){
-            Patient patient = (m.patients.get( appointment.getPatientID()));
+            Patient patient = (storage.getPatientDetails( appointment.getPatientID()));
             System.out.println(" Appointment ID : " + appointment.getAppointmentID());
             System.out.println(" Patient name : " + patient.getName());
-            System.out.println(" Patient ID : " + appointment.getPatientID());
+            System.out.println(" Patient ID : " + patient.getPatientID());
             System.out.println(" Patient Age: " + patient.getAge());
             System.out.println(" Disease : " + appointment.getDisease());
             System.out.println("");
