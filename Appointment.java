@@ -33,7 +33,7 @@ class Appointment implements AppointmentPage{
     public String getDisease(){
         return disease;
     }
-    
+    @Override
     public void createAppointment(Doctor doctor, Patient patient, String disease){
         // Increment Appointment ID 
         Storage storage = new Storage();
@@ -47,6 +47,7 @@ class Appointment implements AppointmentPage{
     
         System.out.println("\n <<<<<<<<<<<<<<<<<<<<<<< Appointment Booked Successfully >> ");        
     }
+    @Override
     public void showAppointmentDetails(Doctor doctor, Patient patient){
         
         System.out.println("\n Appointment ID - " + getAppointmentID());

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 interface PatientPage{
+    void putAppointmentDetails( Appointment appointment);
     void showPatientDetails();
     void showBookedAppointmentsList();
 }
@@ -11,13 +12,13 @@ class Patient implements PatientPage{
     private int age;
     // private String disease;
     // Key -> Appointment Class
-    private ArrayList<Appointment> bookedAppointments = new ArrayList<>();
+    protected  ArrayList<Appointment> bookedAppointments = new ArrayList<>();
     
     public Patient(String name, int age){
         this.name = name;
         this.age = age;
-        // this.disease = disease;
     }
+    
     public void setName(String name){
         this.name = name;
     }
@@ -37,22 +38,15 @@ class Patient implements PatientPage{
     public int getPatientID(){
         return patientID;
     }
-    
+    @Override
     public void putAppointmentDetails( Appointment appointment){
         bookedAppointments.add(appointment);
     }
+
     public int getSizeOfAppointmentsList(){
         return bookedAppointments.size();
     }
-    // public String getDisease(){
-    //     return disease;
-    // }
-    // public void setDisease(String disease){
-    //     this.disease = disease;
-    // }
-
-    
-    
+    @Override
     public void showPatientDetails()
     {
         System.out.println(" Patient name - " + this.name);
@@ -61,6 +55,7 @@ class Patient implements PatientPage{
         System.out.println(" Your Booked Appointments count - " + this.getSizeOfAppointmentsList());
         System.out.println("\n");
     }
+    @Override
     public void showBookedAppointmentsList()
     {
         Storage storage = new Storage();

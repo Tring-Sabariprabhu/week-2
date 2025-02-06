@@ -10,7 +10,7 @@ class Doctor implements DoctorPage{
     private int doctorID;
     
     // Key -> PatientID ,  Value -> AppointmentClass
-    private HashMap<Integer, Appointment> appointments = new HashMap<>();
+    protected HashMap<Integer, Appointment> appointments = new HashMap<>();
     public Doctor(String name, String specialization){
         this.name = name;
         this.specialization = specialization;
@@ -34,7 +34,6 @@ class Doctor implements DoctorPage{
     public String getSpecialization(){
         return specialization;
     }
-    
     public void putAppointmentDetails(int patientID, Appointment appointment){
         appointments.put(patientID, appointment);
     }
@@ -44,9 +43,11 @@ class Doctor implements DoctorPage{
     public int getSizeOfAppointmentsList(){
         return appointments.size();
     }
+    @Override
     public boolean ifAlreadyHaveAppointment(int patientID){
         return appointments.containsKey(patientID);
     }
+    @Override
     public void showDoctorDetails(){
         System.out.println(" Doctor name - " + this.name);
         System.out.println(" Doctor ID - " + this.doctorID);
@@ -54,6 +55,7 @@ class Doctor implements DoctorPage{
         System.out.println(" Appointments count - " + this.appointments.size());
         System.out.println("");
     }
+    @Override
     public void showAppointmentsList()
     {
         Storage storage = new Storage();
