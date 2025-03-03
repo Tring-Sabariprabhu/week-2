@@ -6,6 +6,8 @@ class Appointment implements AppointmentPage{
     private int appointmentID;
     private int patientID;
     private int doctorID;
+
+    
     private String disease;
     public void setAppointmentID(int appointmentID){
         this.appointmentID = appointmentID;
