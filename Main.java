@@ -192,6 +192,7 @@ class Main {
         }
         
         System.out.println("We need you to Select Doctor you want to book Appointment..");
+        System.out.println("Available Doctors with Specializations for your reference..\n");
         storage.showDoctors();                       // Show all Doctors with Specialization
 
         //Selecting a Doctor

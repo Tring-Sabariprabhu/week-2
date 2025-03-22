@@ -50,17 +50,19 @@ class Storage implements StoragePage{
         return patients.get(patientID);
     }
 
+    @Override
     public void AddDoctorDetails(Doctor doctor){
         doctors.put(doctor.getDoctorID(), doctor);
         System.out.println("\n <<<<<<<<<<<<<<<<<<<<<<< Doctor details Saved Successfully >> ");
     }
+    @Override
     public void AddPatientDetails(Patient patient){
         patients.put(patient.getPatientID(), patient);
         System.out.println("\n <<<<<<<<<<<<<<<<<<<<<<< Patient details Saved Successfully >> ");
     }
 
+    @Override
     public void showDoctors(){
-        System.out.println("Available Doctors with Specializations for your reference..\n");
         for(Doctor doctor: doctors.values()){
             System.out.println("\n Doctor name - "+ doctor.getName());
             System.out.println(" Doctor ID - "+ doctor.getDoctorID());
