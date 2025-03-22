@@ -1,37 +1,32 @@
-import java.util.Scanner;
-// import java.util.Scanner;
                                                     
 class Main {
     
     private static boolean typeErrorStatus;
 
-    public void setTypeErrorStatus(boolean status){
-        this.typeErrorStatus = status;
+    public static void setTypeErrorStatus(boolean status){
+        typeErrorStatus = status;
     }
-    public boolean getTypeErrorStatus(){
+    public static boolean  getTypeErrorStatus(){
         return typeErrorStatus;
     }
+
     public static void main(String[] args) {
         TypeErrorFreeInput typeErrorFreeInput = new TypeErrorFreeInput();
-        Storage storage = new Storage();
         int Choice;
         do{
-            Doctor doctor;
-            Patient patient;
-            int doctorID;
-            int patientID;
-
             System.out.println("________________________________________________");
             System.out.println("\n1 - Create Doctor details \n2 - Create Appointment \n3 - Doctors count \n4 - Patients count \n5 - Doctor's Profile \n6 - Patient's Profile \n7 - Appointment details (Doctor view) \n8 - Appointment details (Patient view) \n9 - Exit");
             System.out.println("________________________________________________");
 
-            typeErrorStatus = false;                               // Initialize TypeErrorStatus as false
+            setTypeErrorStatus(false);                               // Initialize TypeErrorStatus as false
             Choice = typeErrorFreeInput.get_Input_Int("Choice");
-            if(typeErrorStatus){
-                break;
+            if(getTypeErrorStatus()){
+                Choice = 1; // to run
+                continue;
             }
             else if(isInvalidChoice(Choice, "Choice")){
-                break;
+                Choice = 1; // to run
+                continue;
             }
 
             switch (Choice) {
@@ -77,7 +72,23 @@ class Main {
         System.out.println("Program Terminated..");
     }
     
-    
+    public static boolean isInvalidChoice(int input, String fieldName){
+        String errormsg = " Should be 1 to 9";
+        if(input < 1 || input > 9)
+        {
+            System.out.println("Error! " + fieldName + errormsg);
+            return true;
+        }
+        return false;
+    }
+    public static boolean isInvalidResponse(int input, String fieldName){
+        String errormsg = " Should be 0 or 1";
+        if(input != 0 && input != 1){
+            System.out.println("Error! " + fieldName + errormsg);
+            return true;
+        }
+        return false;
+    }
     public static boolean isInvalidString(String input, String fieldName)
     {
         input = input.trim().toLowerCase();
@@ -91,10 +102,8 @@ class Main {
             return true;
         }
         for(int i = 0; i < input.length(); i++){
-            if(input.charAt(i) >= 97 && input.charAt(i) <= 122){
-                continue;
-            }
-            else if(input.charAt(i) == ' ')
+            char letter = input.charAt(i);
+            if(letter == ' ' || (letter >= 97 && letter <= 122))
                 continue;
             else{
                 System.out.println("\nError! " + fieldName + " Shouldn't contain Numbers, Special symbols[except Space]");
@@ -120,37 +129,20 @@ class Main {
         }
         return false;
     }
-    public static boolean isInvalidChoice(int input, String fieldName){
-        String errormsg = " Should be 1 to 9";
-        if(input < 1 || input > 9)
-        {
-            System.out.println("Error! " + fieldName + errormsg);
-            return true;
-        }
-        return false;
-    }
-    public static boolean isInvalidResponse(int input, String fieldName){
-        String errormsg = " Should be 0 or 1";
-        if(input != 0 && input != 1){
-            System.out.println("Error! " + fieldName + errormsg);
-            return true;
-        }
-        return false;
-    }
+    
     public static void CreateDoctorDetails(){
         Storage storage = new Storage();
         TypeErrorFreeInput typeErrorFreeInput = new TypeErrorFreeInput();
 
         String ProcessStoppedMsg = "Creating Doctor details process Stopped !";
         Doctor doctor;
-        Patient patient;
 
         //Creating & Saving Doctor Details
-        System.out.println("Requirement Details for Creating Doctor account: ");
+        System.out.println("Requirement details for Creating Doctor account: ");
 
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);
         String name = typeErrorFreeInput.get_Input_String("Doctor Name");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -159,9 +151,9 @@ class Main {
             return;
         }
         
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
         String specialization = typeErrorFreeInput.get_Input_String("Doctor's Specialization");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -179,22 +171,22 @@ class Main {
         storage.AddDoctorDetails(doctor);                               // Saving details
 
         //Show entered Doctor details
-        System.out.println("\nEntered Doctor Details->");
+        System.out.println("\nEntered Doctor details->");
         doctor.showDoctorDetails();
     }
     public static void CreateAppointmentDetails()
     {
         Storage storage = new Storage();
         TypeErrorFreeInput typeErrorFreeInput = new TypeErrorFreeInput();
-        Scanner scan = new Scanner(System.in);
 
         String ProcessStoppedMsg = "Creating Appointment process stopped !";
         Doctor doctor;
         Patient patient;
         int doctorID;
         int patientID;
+
         if(storage.getSizeOfDoctorsList() == 0){    // Size of Saved Doctor details List
-            System.out.println("You can't Create Appointment. Because No Doctors details found!");
+            System.out.println("You can't Create Appointment. because No Doctors details found!");
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -203,10 +195,10 @@ class Main {
         storage.showDoctors();                       // Show all Doctors with Specialization
 
         //Selecting a Doctor
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         doctorID = typeErrorFreeInput.get_Input_Int("Doctor ID");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             // Integer Type error
             System.out.println(ProcessStoppedMsg);
             return;
@@ -222,19 +214,19 @@ class Main {
         }
 
         doctor = storage.getDoctorDetails(doctorID);           // Fetch Doctor Details
-        System.out.println("\nSelected Doctor Details->");
+        System.out.println("\nSelected Doctor details->");
         doctor.showDoctorDetails();
 
         //Getting Patient Details
-        System.out.println("We need Patient Details for Creating Appointment..");
+        System.out.println("We need Patient details for Creating Appointment..");
 
         //Confirm that Patient have ID or not ?
         System.out.println("Do you already having PatientID.? ( 1 => Yes | 0 => No ) : ");
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         int isAlreadyThere = typeErrorFreeInput.get_Input_Int("Response");
 
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -242,17 +234,18 @@ class Main {
             System.out.println(ProcessStoppedMsg);
             return;
         }
-        if((isAlreadyThere == 1)){
+        if((isAlreadyThere == 1))
+        {
             if(storage.getSizeOfPatientsList() == 0){
-                System.out.println("I Sure , You haven't ID.  Because, No Patients found! ");
+                System.out.println("You haven't Patient ID.  Because, No Patients found! ");
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
             //If they have ID, login with ..
-            typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+            setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
             patientID = typeErrorFreeInput.get_Input_Int("Patient ID");
-            if(typeErrorStatus){                                             // Integer Type error 
+            if(getTypeErrorStatus()){                                             // Integer Type error 
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
@@ -267,18 +260,18 @@ class Main {
             }
 
             patient =  storage.getPatientDetails(patientID);                // Fetch Patient Class
-            System.out.println("\nSelected Patient Details->");
+            System.out.println("\nSelected Patient details->");
             }
         else
         {
             System.out.println("\nSo, you need to Enter Patient details ..");
-            System.out.println("Requirement Details for Creating Patient account: ");
+            System.out.println("Requirement details for Creating Patient account: ");
             // System.out.print(" Patient Name : ");
 
-            typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+            setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
             String name = typeErrorFreeInput.get_Input_String("Patient Name");
-            if(typeErrorStatus){
+            if(getTypeErrorStatus()){
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
@@ -287,10 +280,10 @@ class Main {
                 return;
             }
 
-            typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+            setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
             int age = typeErrorFreeInput.get_Input_Int("Patient Age");
-            if(typeErrorStatus){
+            if(getTypeErrorStatus()){
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
@@ -307,7 +300,7 @@ class Main {
 
             storage.AddPatientDetails(patient);                                    // Saving Patient details
 
-            System.out.println("\nEntered Patient Details->");
+            System.out.println("\nEntered Patient details->");
         }
         
         // Showing entered Patient Details
@@ -315,7 +308,7 @@ class Main {
 
         if(doctor.ifAlreadyHaveAppointment(patient.getPatientID())){
             System.out.println(ProcessStoppedMsg);
-            System.out.println("\nSorry!! You Already Have Appointment with this Doctor. Am I right? ");
+            System.out.println("\nSorry!! You Already Have Appointment with this Doctor?.. ");
             
 
             // then Show previous Appointment details and Stop the Process
@@ -327,10 +320,10 @@ class Main {
 
         // Getting Disease details
         System.out.println("To Creating Appointment we need Info about Disease..");
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         String disease = typeErrorFreeInput.get_Input_String("Disease Name");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -350,7 +343,7 @@ class Main {
         patient.putAppointmentDetails(appointment);
 
         // Finally.. Showing Appointment details 
-        System.out.println("\nBooked Appointment Details..");
+        System.out.println("\nBooked Appointment details..");
         (doctor.getAppointmentDetails(patient.getPatientID())).showAppointmentDetails(doctor, patient);
     }
     public static void ShowCountOfDoctors(){
@@ -391,10 +384,10 @@ class Main {
         }
         //Selecting a Doctor
         
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         doctorID = typeErrorFreeInput.get_Input_Int("Doctor ID");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             // Integer Type error
             System.out.println(ProcessStoppedMsg);
             return;
@@ -410,7 +403,7 @@ class Main {
         }
 
         doctor = storage.getDoctorDetails(doctorID);           // Fetch Doctor Details
-        System.out.println("\nFetched Doctor Details->");
+        System.out.println("\nFetched Doctor details->");
         doctor.showDoctorDetails();
     }
     public static void ShowPatientProfile()
@@ -430,10 +423,10 @@ class Main {
 
         //Selecting a Doctor
         
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         patientID = typeErrorFreeInput.get_Input_Int("Patient ID");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             // Integer Type error
             System.out.println(ProcessStoppedMsg);
             return;
@@ -449,7 +442,7 @@ class Main {
         }
 
         patient = storage.getPatientDetails(patientID);                // Fetch Patient Details
-        System.out.println("\nFetched Patient Details->");
+        System.out.println("\nFetched Patient details->");
         patient.showPatientDetails();
     }
     public static void showAppointmentsList_Doctor()
@@ -465,10 +458,10 @@ class Main {
             return;
         }
         
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         doctorID = typeErrorFreeInput.get_Input_Int("Doctor ID");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             // Integer Type error
             System.out.println(ProcessStoppedMsg);
             return;
@@ -484,7 +477,7 @@ class Main {
 
         doctor = storage.getDoctorDetails(doctorID);
 
-        System.out.println("\nSelected Doctor Details->");
+        System.out.println("\nSelected Doctor details->");
         doctor.showDoctorDetails();
 
         //Showing Appointment List for Doctor
@@ -503,10 +496,10 @@ class Main {
             return;
         }
     
-        typeErrorStatus = false;                                 // Initialze TypeErrorStatus as false
+        setTypeErrorStatus(false);                                 // Initialze TypeErrorStatus as false
 
         patientID = typeErrorFreeInput.get_Input_Int("Patient ID");
-        if(typeErrorStatus){
+        if(getTypeErrorStatus()){
             // Integer Type error
             System.out.println(ProcessStoppedMsg);
             return;
@@ -522,7 +515,7 @@ class Main {
 
         patient = storage.getPatientDetails(patientID);
 
-        System.out.println("\nSelected Patient Details->");
+        System.out.println("\nSelected Patient details->");
         patient.showPatientDetails();
 
         //Showing Appointment List for Patient

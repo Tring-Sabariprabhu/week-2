@@ -10,7 +10,8 @@ class Doctor implements DoctorPage{
     private int doctorID;
     
     // Key -> PatientID ,  Value -> AppointmentClass
-    protected HashMap<Integer, Appointment> appointments = new HashMap<>();
+    private  HashMap<Integer, Appointment> appointments = new HashMap<>();
+    
     public Doctor(String name, String specialization){
         this.name = name;
         this.specialization = specialization;

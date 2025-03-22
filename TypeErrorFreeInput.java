@@ -2,9 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 class TypeErrorFreeInput{
 
-    // Fieldname => Getting input for Particular field
-    public int get_Input_Int(String fieldName){
-        String errormsg = " must be in Int type.";
+    public int get_Input_Int(String fieldName){       // Fieldname => Getting input for Particular field
+        String errormsg = " must be in Integer type.";
         Scanner scan = new Scanner(System.in);
         int input = 0;
         try{
@@ -13,8 +12,8 @@ class TypeErrorFreeInput{
         }
         catch(InputMismatchException e){
             Main m = new Main();
-            m.setTypeErrorStatus(true);               // Set TypeErrorStatus as TRUE 
-            System.out.println("\nError !! " + fieldName + errormsg);
+            m.setTypeErrorStatus(true);             
+            System.out.println("\nType Error !! " + fieldName + errormsg);
         }
         
         return input;
@@ -29,8 +28,8 @@ class TypeErrorFreeInput{
         }
         catch(InputMismatchException e){
             Main m = new Main();
-            m.setTypeErrorStatus(true);               // Set TypeErrorStatus as TRUE 
-            System.out.println("\nError !! " + fieldName + errormsg);
+            m.setTypeErrorStatus(true);             
+            System.out.println("\nType Error !! " + fieldName + errormsg);
         }
         return input.trim();
     }

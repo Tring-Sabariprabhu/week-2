@@ -10,9 +10,8 @@ class Patient implements PatientPage{
     private int patientID;
     private String name;
     private int age;
-    // private String disease;
-    // Key -> Appointment Class
-    protected  ArrayList<Appointment> bookedAppointments = new ArrayList<>();
+
+    private  ArrayList<Appointment> bookedAppointments = new ArrayList<>();
     
     public Patient(String name, int age){
         this.name = name;
@@ -46,6 +45,7 @@ class Patient implements PatientPage{
     public int getSizeOfAppointmentsList(){
         return bookedAppointments.size();
     }
+    
     @Override
     public void showPatientDetails()
     {
