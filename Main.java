@@ -89,7 +89,7 @@ class Main {
         }
         return false;
     }
-    public static boolean isInvalidString(String input, String fieldName)
+    public static boolean isInvalidName(String input, String fieldName)
     {
         input = input.trim().toLowerCase();
         if(input.length() == 0)
@@ -112,6 +112,52 @@ class Main {
         }
         return false;
     }
+    public static boolean isInvalidDisease(String input, String fieldName)
+    {
+        input = input.trim().toLowerCase();
+        if(input.length() == 0)
+        {
+            System.out.println("\nError! " + fieldName + " Shouldn't be null");
+            return true;
+            }
+        else if(input.length() == 1){
+            System.out.println("\nError! " + fieldName + " can't be Single character !");
+            return true;
+        }
+        for(int i = 0; i < input.length(); i++){
+            char letter = input.charAt(i);
+            if(letter == ' ' || (letter >= 97 && letter <= 122) || (letter >= 48 && letter <= 57))
+                continue;
+            else{
+                System.out.println("\nError! " + fieldName + " Shouldn't contain Special symbols[except Space]");
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean isInvalidSpecialization(String input, String fieldName)
+    {
+        input = input.trim().toLowerCase();
+        if(input.length() == 0)
+        {
+            System.out.println("\nError! " + fieldName + " Shouldn't be null");
+            return true;
+            }
+        else if(input.length() == 1){
+            System.out.println("\nError! " + fieldName + " can't be Single character !");
+            return true;
+        }
+        for(int i = 0; i < input.length(); i++){
+            char letter = input.charAt(i);
+            if(letter == ' ' || (letter >= 97 && letter <= 122) || (letter >= 48 && letter <= 57))
+                continue;
+            else{
+                System.out.println("\nError! " + fieldName + " Shouldn't contain Special symbols[except Space]");
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean isInvalidID(int input, String fieldName)
     {
         String errormsg = " Should be Positive number.";
@@ -123,7 +169,7 @@ class Main {
         return false;
     }
     public static boolean isInvalidAge(int input, String fieldName){
-        if(input <= 0){
+        if(input <= 0 && input > 100){
             System.out.println("Error! " + fieldName + " Should be above Zero ");
             return true;
         }
@@ -146,7 +192,7 @@ class Main {
             System.out.println(ProcessStoppedMsg);
             return;
         }
-        else if(isInvalidString(name, "Doctor Name")){
+        else if(isInvalidName(name, "Doctor Name")){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -157,7 +203,7 @@ class Main {
             System.out.println(ProcessStoppedMsg);
             return;
         }
-        else if(isInvalidString(specialization, "Doctor's Specialization")){
+        else if(isInvalidSpecialization(specialization, "Doctor's Specialization")){
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -276,7 +322,7 @@ class Main {
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
-            else if(isInvalidString(name, "Patient Name")){
+            else if(isInvalidName(name, "Patient Name")){
                 System.out.println(ProcessStoppedMsg);
                 return;
             }
@@ -307,14 +353,14 @@ class Main {
         // Showing entered Patient Details
         patient.showPatientDetails();
 
-        if(doctor.ifAlreadyHaveAppointment(patient.getPatientID())){
+        if(isAlreadyThere == 1 && doctor.ifAlreadyHaveAppointment(patient.getPatientID())){
             System.out.println(ProcessStoppedMsg);
             System.out.println("\nSorry!! You Already Have Appointment with this Doctor?.. ");
             
-
             // then Show previous Appointment details and Stop the Process
             System.out.println("Here's your Appointment details ..");
-            ( doctor.getAppointmentDetails(patient.getPatientID()) ).showAppointmentDetails(doctor, patient); 
+            Appointment appointment = doctor.getAppointmentDetails(patient.getPatientID());
+            appointment.showAppointmentDetails(doctor, patient); 
             System.out.println(ProcessStoppedMsg);
             return;
         }
@@ -328,7 +374,7 @@ class Main {
             System.out.println(ProcessStoppedMsg);
             return;
         }
-        else if(isInvalidString(disease, "Patient's Disease")){
+        else if(isInvalidDisease(disease, "Patient's Disease")){
             System.out.println(ProcessStoppedMsg);
             return ;
         }

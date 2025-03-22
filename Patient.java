@@ -75,9 +75,7 @@ class Patient implements PatientPage{
             System.out.println(" Doctor ID : " + appointment.getDoctorID());
             System.out.println(" Doctor name : " + doctor.getName());
             System.out.println(" Specialization : " + doctor.getSpecialization());
-            System.out.println(" Disease : " + appointment.getDisease());
-            System.out.println("");
-
+            System.out.println(" Disease : " + appointment.getDisease() + "\n");
         }
     }
     

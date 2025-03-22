@@ -60,7 +60,6 @@ class Appointment implements AppointmentPage{
 
         System.out.println(" Doctor Name - " + doctor.getName());
         System.out.println(" Doctor ID - " + doctor.getDoctorID());         
-        System.out.println(" Specialization - " + doctor.getSpecialization());
-        System.out.println("");
+        System.out.println(" Specialization - " + doctor.getSpecialization() + "\n");
     }
 }
